@@ -1,10 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
-import { Navbar } from "./navbar/navbar";
-import { Footer } from "./footer/footer";
+import { Navbar } from "./components/navbar/navbar";
+import { Footer } from "./components/footer/footer";
 import {MatButtonModule} from '@angular/material/button';
 import {MatBadgeModule} from '@angular/material/badge';
-import { Home } from "./home/home";
+import { Home } from "./components/home/home";
 
 @Component({
   selector: 'app-root',
