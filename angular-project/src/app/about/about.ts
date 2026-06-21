@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './about.css',
 })
 export class About {
-
+  companyName = 'Patil Software';
+  description =
+    'We build modern web applications using Angular and other cutting-edge technologies.';
 }
