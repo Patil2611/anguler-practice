@@ -4,9 +4,10 @@ import { Navbar } from "./navbar/navbar";
 import { Footer } from "./footer/footer";
 import {MatButtonModule} from '@angular/material/button';
 import {MatBadgeModule} from '@angular/material/badge';
+import { Home } from "./home/home";
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, Footer, MatButtonModule, MatBadgeModule, MatBadgeModule],
+  imports: [RouterOutlet, Navbar, Footer, MatButtonModule, MatBadgeModule, MatBadgeModule, Home],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
