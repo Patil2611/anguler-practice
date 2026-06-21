@@ -1,5 +1,112 @@
 <!-- Main Content -->
 <main class="content">
-  <h2>Angular Material Test Page</h2>
-  <p>This is sample content for testing.</p>
+  <div class="container">
+    <h1>Product Management - CRUD Demo</h1>
+
+    <!-- Add/Edit Product Form -->
+    <mat-card class="form-card">
+      <mat-card-header>
+        <mat-card-title>{{ isAddMode ? 'Add New Product' : 'Edit Product' }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form class="form-container">
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Product Name</mat-label>
+            <input matInput [(ngModel)]="newProduct.pName" name="pName" placeholder="Enter product name">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Price</mat-label>
+            <input matInput type="number" [(ngModel)]="newProduct.price" name="price" placeholder="Enter price">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Category</mat-label>
+            <input matInput [(ngModel)]="newProduct.category" name="category" placeholder="Enter category">
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="form-field">
+            <mat-label>Status</mat-label>
+            <mat-select [(ngModel)]="newProduct.status" name="status">
+              <mat-option value="0">Active</mat-option>
+              <mat-option value="2">Deactive</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div class="button-group">
+            <button mat-raised-button color="primary" (click)="isAddMode ? onAddProduct() : onUpdateProduct()">
+              {{ isAddMode ? 'Add Product' : 'Update Product' }}
+            </button>
+            <button mat-raised-button (click)="onCancel()" *ngIf="!isAddMode || (newProduct.pName || newProduct.price || newProduct.category)">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Products Table -->
+    <mat-card class="table-card">
+      <mat-card-header>
+        <mat-card-title>Products List</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="table-container">
+          <table mat-table [dataSource]="products" class="products-table">
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>ID</th>
+              <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+            </ng-container>
+
+            <!-- Product Name Column -->
+            <ng-container matColumnDef="pName">
+              <th mat-header-cell *matHeaderCellDef>Product Name</th>
+              <td mat-cell *matCellDef="let element">{{ element.pName }}</td>
+            </ng-container>
+
+            <!-- Price Column -->
+            <ng-container matColumnDef="price">
+              <th mat-header-cell *matHeaderCellDef>Price</th>
+              <td mat-cell *matCellDef="let element">${{ element.price.toFixed(2) }}</td>
+            </ng-container>
+
+            <!-- Category Column -->
+            <ng-container matColumnDef="category">
+              <th mat-header-cell *matHeaderCellDef>Category</th>
+              <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>Status</th>
+              <td mat-cell *matCellDef="let element">
+                <span class="status" [ngClass]="element.status.toLowerCase()">{{ element.status }}</span>
+              </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" (click)="onEditProduct(element)" title="Edit">
+                  ✎
+                </button>
+                <button mat-icon-button color="warn" (click)="onDeleteProduct(element.id)" title="Delete">
+                  🗑
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+          <div *ngIf="products.length === 0" class="no-data">
+            <p>No products available. Add one to get started!</p>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </main>
